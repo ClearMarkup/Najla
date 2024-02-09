@@ -1,5 +1,5 @@
 <?php
-
+/* TEST COMMENT */
 class Api extends Core
 {
     private $requestBody = [];
