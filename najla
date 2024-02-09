@@ -7,7 +7,7 @@ $command = $argv[1];
 
 switch ($command) {
     case 'init':
-        require_once __DIR__ . '/.init/init.php';
+        require_once __DIR__ . '/.cli/init.php';
         break;
 
     case 'class:extends':
@@ -17,7 +17,7 @@ switch ($command) {
         }
         $class_name = ucfirst($argv[2]);
 
-        require_once __DIR__ . '/.init/extends.php';
+        require_once __DIR__ . '/.cli/extends.php';
         break;
 
     case 'class':
@@ -28,12 +28,12 @@ switch ($command) {
 
         $class_name = ucfirst($argv[2]);
 
-        require_once __DIR__ . '/.init/class.php';
+        require_once __DIR__ . '/.cli/class.php';
         break;
 
     case 'serve:mail':
     case 's:m':
-        shell_exec('cd .init/mailslurper && ./mailslurper');
+        shell_exec('cd .cli/mailslurper && ./mailslurper');
         break;
 
     case 'serve:dev':
@@ -42,12 +42,19 @@ switch ($command) {
         $errorLogPath = __DIR__ . '/errors.txt';
 
         echo "Starting server at http://localhost:$port\n";
-        shell_exec("php -S 0.0.0.0:$port -t " . __DIR__ . " -f ./.init/router.php -d error_log=$errorLogPath -d log_errors=On");
+        shell_exec("php -S 0.0.0.0:$port -t " . __DIR__ . " -f ./.cli/router.php -d error_log=$errorLogPath -d log_errors=On");
         
         break;
 
     case 'build':
-        require_once __DIR__ . '/.init/build.php';
+        require_once __DIR__ . '/.cli/build.php';
+        break;
+    case 'build:add':
+        if ($argc < 3) {
+            die("Please provide a file/dir to add.\n");
+        }
+
+        require_once __DIR__ . '/.cli/build_addpath.php';
         break;
 
     default:
