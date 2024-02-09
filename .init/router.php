@@ -1,5 +1,7 @@
 <?php
 // router.php
+
+
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if (preg_match('/\.(?:txt|css|js|svg|png|jpg|jpeg|gif|ico|ttf|json)$/', $path)) {

@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 /* CONFIG */
-require_once(__DIR__ . '/najla2.config.php');
+require_once(__DIR__ . '/najla.config.php');
 /* END_CONFIG */
 
 // Set custom session name

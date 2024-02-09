@@ -3,3 +3,6 @@
 !/uploads/.gitkeep
 /vendor/
 /build/
+*.config.php
+najla.config.json
+errors.txt
