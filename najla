@@ -1,0 +1,52 @@
+<?php
+if ($argc < 2) {
+    die("Please provide a command.\n");
+}
+
+$command = $argv[1];
+
+switch ($command) {
+    case 'init':
+        require_once __DIR__ . '/.init/init.php';
+        break;
+
+    case 'class:extends':
+    case 'c:e':
+        if ($argc < 3) {
+            die("Please provide wich class to extend.\n");
+        }
+        $class_name = ucfirst($argv[2]);
+
+        require_once __DIR__ . '/.init/extends.php';
+        break;
+
+    case 'class':
+    case 'c':
+        if ($argc < 3) {
+            die("Please provide a class name.\n");
+        }
+
+        $class_name = ucfirst($argv[2]);
+
+        require_once __DIR__ . '/.init/class.php';
+        break;
+
+    case 'serve:mail':
+        shell_exec('cd .init/mailslurper && ./mailslurper');
+        break;
+
+    case 'serve':
+        $port = $argv[2] ?? '8000';
+
+        echo "Starting server at http://localhost:$port\n";
+        shell_exec("php -S 0.0.0.0:$port -t " . __DIR__ . " -f ./.init/router.php");
+        break;
+
+    case 'build':
+        require_once __DIR__ . '/.init/build.php';
+        break;
+
+    default:
+        die("Invalid command.\n");
+        break;
+}

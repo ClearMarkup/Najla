@@ -1,0 +1,12 @@
+Options All -Indexes
+RewriteEngine on
+
+# AuthType Basic
+# AuthName "Restricted Area"
+# AuthUserFile /var/www/.htpasswd
+# Require valid-user
+
+
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_URI}[^/] !.*\.(txt|css|js|svg|png|jpg|jpeg|gif|ico|ttf|json)
+RewriteRule . /index.php [L]
