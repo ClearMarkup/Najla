@@ -12,7 +12,10 @@ $config = json_decode(file_get_contents(__DIR__ . '/../najla.config.json'), true
 $build_files = $config['buildFiles'];
 
 foreach ($build_files as $file) {
-    if (is_dir(__DIR__ . '/../' . $file)) {
+    if (substr($file, -2) === '/!') {
+        shell_exec('rsync -a -f"+ */" -f"- *" ' . __DIR__ . '/../' . substr($file, 0, -2) . ' ' . __DIR__ . '/../build/');
+        continue;
+    } else if (is_dir(__DIR__ . '/../' . $file)) {
         shell_exec('rsync -a ' . __DIR__ . '/../' . $file . ' ' . __DIR__ . '/../build/' . $file);
     } else {
         copy(__DIR__ . '/../' . $file, __DIR__ . '/../build/' . $file);

@@ -10,7 +10,7 @@ $config = json_decode($config_json, true);
 $config['buildFiles'][] = $argv[2];
 
 // Encode JSON
-$config_json = json_encode($config, JSON_PRETTY_PRINT);
+$config_json = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
 // Save to file
 file_put_contents(__DIR__ . '/../najla.config.json', $config_json);
