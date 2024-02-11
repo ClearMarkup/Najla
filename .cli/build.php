@@ -7,7 +7,7 @@ if (!file_exists(__DIR__ . '/../build')) {
     mkdir(__DIR__ . '/../build');
 }
 
-$config = json_decode(file_get_contents(__DIR__ . '/../najla.config.json'), true);
+$config = json_decode(file_get_contents(__DIR__ . '/../najla.json'), true);
 
 $build_files = $config['buildFiles'];
 

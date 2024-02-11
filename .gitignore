@@ -4,5 +4,5 @@
 /vendor/
 /build/
 *.config.php
-najla.config.json
+najla.json
 errors.txt

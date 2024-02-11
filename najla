@@ -30,6 +30,19 @@ switch ($command) {
 
         require_once __DIR__ . '/.cli/class.php';
         break;
+    
+    case 'router:api':
+    case 'r:a':
+        if ($argc < 3) {
+            die("Please provide a method.\n");
+            
+        } else if ($argc < 4) {
+            die("Please provide a route name.\n");
+            
+        }
+
+        require_once __DIR__ . '/.cli/router_api.php';
+        break;
 
     case 'serve:mail':
     case 's:m':

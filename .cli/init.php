@@ -110,8 +110,8 @@ $index_file = file_get_contents(__DIR__ . '/../index.php');
 $index_file = preg_replace('/(\/\* CONFIG \*\/).*?(\/\* END_CONFIG \*\/)/s', "$1\nrequire_once(__DIR__ . '/$config_file_name');\n$2", $index_file);
 file_put_contents(__DIR__ . '/../index.php', $index_file);
 
-// create the najla.config.json file
-file_put_contents(__DIR__ . '/../najla.config.json', json_encode([
+// create the najla.json file
+file_put_contents(__DIR__ . '/../najla.json', json_encode([
     'buildFiles' => [
         "classes/",
         "controller/",
