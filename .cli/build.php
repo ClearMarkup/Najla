@@ -22,13 +22,7 @@ foreach ($build_files as $file) {
     }
 }
 
-$index_file = file_get_contents(__DIR__ . '/../build/index.php');
-$index_file = preg_replace_callback('/(\/\* CONFIG \*\/)(.*?)(\/\* END_CONFIG \*\/)/s', function ($matches) {
-    return $matches[1] . preg_replace('/require_once\(__DIR__ \. \'\/(.*?)\'\);/', 'require_once(__DIR__ . \'/../$1\');', $matches[2]) . $matches[3];
-}, $index_file);
-file_put_contents(__DIR__ . '/../build/index.php', $index_file);
-
 echo "\033[32m✅ Build complete!\033[0m You can find the build files in the build/ directory\n";
 
 // Gul text
-echo "\033[33mYou need to move config.php to the parent directory of the public directory\033[0m\n";
+echo "\033[33mYou need to move najla-config.php to the parent directory of the public directory\033[0m\n";

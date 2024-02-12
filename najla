@@ -69,6 +69,14 @@ switch ($command) {
 
         require_once __DIR__ . '/.cli/build_addpath.php';
         break;
+    
+    case 'build:remove':
+        if ($argc < 3) {
+            die("Please provide a file/dir to remove.\n");
+        }
+
+        require_once __DIR__ . '/.cli/build_removepath.php';
+        break;
 
     default:
         die("Invalid command.\n");

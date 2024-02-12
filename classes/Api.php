@@ -1,7 +1,25 @@
 <?php
+namespace Najla\Classes;
+
+use Rakit\Validation\Validator;
+
 class Api extends Core
 {
     private $requestBody = [];
+    protected $validator;
+
+    public function __construct()
+    {
+        $this->validator = new Validator;
+
+        $validation_files = glob(__DIR__ . '/../controller/validatorRules/*');
+        foreach ($validation_files as $file) {
+            $validatorName = basename($file, '.php');
+            $validatorClass = 'Najla\\Validation\\ExtendsRules\\' . $validatorName;
+            $this->validator->addValidator($validatorName, new $validatorClass());
+        };
+        
+    }
 
     public function csrf()
     {
@@ -16,13 +34,12 @@ class Api extends Core
 
     public function auth($status = true)
     {
-        global $auth;
         if ($status) {
-            if (!$auth->isLoggedIn()) {
+            if (!self::$authInstance->isLoggedIn()) {
                 $this->error('You are not logged in.');
             }
         } else {
-            if ($auth->isLoggedIn()) {
+            if (self::$authInstance->isLoggedIn()) {
                 $this->error('You are already logged in.');
             }
         }
@@ -31,10 +48,9 @@ class Api extends Core
 
     public function isStatus($status)
     {
-        global $auth;
         switch ($status) {
             case 'normal':
-                if (!$auth->isNormal()) {
+                if (!self::$authInstance->isNormal()) {
                     $this->error('You are not authorized to access this resource.');
                 }
                 break;
@@ -44,8 +60,7 @@ class Api extends Core
 
     public function hasRole($role)
     {
-        global $auth;
-        if (!$auth->hasRole($role)) {
+        if (!self::$authInstance->hasRole($role)) {
             $this->error('You are not authorized to access this resource.');
         }
         return $this;
@@ -71,8 +86,7 @@ class Api extends Core
 
     public function validate($rules)
     {
-        global $validator;
-        $validation = $validator->validate($this->requestBody, $rules);
+        $validation = $this->validator->validate($this->requestBody, $rules);
         if ($validation->fails()) {
             $this->error(['elements' => $validation->errors()->firstOfAll()]);
         }

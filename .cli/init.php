@@ -30,9 +30,6 @@ if (empty($database_host)) {
     $database_host = "127.0.0.1";
 }
 
-$config_file_name = strtolower(str_replace(' ', '-', $project_name)). '.config.php';
-
-
 echo "Type the database name: (default is " . strtolower(str_replace(' ', '_', $project_name)) . ")\n";
 $database_name = rtrim(fgets(STDIN), PHP_EOL);
 if (empty($database_name)) {
@@ -59,7 +56,7 @@ $pdo->exec("USE $database_name");
 $pdo->exec(file_get_contents(__DIR__ . '/database/MySQL.sql'));
 
 // create the config file
-file_put_contents(__DIR__ . '/../' . $config_file_name, "<?php
+file_put_contents(__DIR__ . '/../' . 'najla-config.php', "<?php
 \$config = (object) [
     \"sitename\" => '$project_name',
     \"url\" => '$project_url',
@@ -106,10 +103,6 @@ file_put_contents(__DIR__ . '/../' . $config_file_name, "<?php
     \"stripe_signing_secret\" => ''
 ];");
 
-$index_file = file_get_contents(__DIR__ . '/../index.php');
-$index_file = preg_replace('/(\/\* CONFIG \*\/).*?(\/\* END_CONFIG \*\/)/s', "$1\nrequire_once(__DIR__ . '/$config_file_name');\n$2", $index_file);
-file_put_contents(__DIR__ . '/../index.php', $index_file);
-
 // create the najla.json file
 file_put_contents(__DIR__ . '/../najla.json', json_encode([
     'buildFiles' => [
@@ -120,7 +113,7 @@ file_put_contents(__DIR__ . '/../najla.json', json_encode([
         "views/",
         ".htaccess",
         "index.php",
-        "$config_file_name",
+        "najla-config.php",
     ]
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 

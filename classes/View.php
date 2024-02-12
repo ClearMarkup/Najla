@@ -1,4 +1,5 @@
 <?php
+namespace Najla\Classes;
 
 class View extends Core
 {
@@ -7,15 +8,15 @@ class View extends Core
 
     public function __construct()
     {
-        global $config, $auth, $match;
+        global $config, $match;
         $this->assign('site', (object) [
             'name' => $config->sitename,
             'language' => $config->language,
         ]);
 
         $db = new Db;
-        if ($auth->isLoggedIn()) {
-            $user = $db->table('users')->filter('id', $auth->getUserId())->get([
+        if (self::$authInstance->isLoggedIn()) {
+            $user = $db->table('users')->filter('id', self::$authInstance->getUserId())->get([
                 'id',
                 'email',
                 'username',
@@ -23,7 +24,7 @@ class View extends Core
             ]);
 
             $user['needsEmailConfirmation'] = $db->table('users_confirmations')->filter([
-                'user_id' => $auth->getUserId(),
+                'user_id' => self::$authInstance->getUserId(),
                 'expires[>]' => time()
             ])->has();
         } else {
@@ -44,14 +45,13 @@ class View extends Core
 
     public function auth($status = true)
     {
-        global $auth;
         if ($status) {
-            if (!$auth->isLoggedIn()) {
+            if (!self::$authInstance->isLoggedIn()) {
                 header('Location: /' . __('urLogin'));
                 exit;
             }
         } else {
-            if ($auth->isLoggedIn()) {
+            if (self::$authInstance->isLoggedIn()) {
                 header('Location: /');
                 exit;
             }
@@ -61,10 +61,9 @@ class View extends Core
 
     public function isStatus($status)
     {
-        global $auth;
         switch ($status) {
             case 'normal':
-                if (!$auth->isNormal()) {
+                if (!self::$authInstance->isNormal()) {
                     http_response_code(403);
                     header('Location: /' . __('urLogin'));
                     exit;
@@ -76,8 +75,7 @@ class View extends Core
 
     public function hasRole($role)
     {
-        global $auth;
-        if (!$auth->hasRole($role)) {
+        if (!self::$authInstance->hasRole($role)) {
             http_response_code(403);
             header('Location: /' . __('urLogin'));
             exit;

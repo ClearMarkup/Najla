@@ -19,6 +19,9 @@ if (!file_exists($dir)) {
 }
 
 file_put_contents($dir . $file_name . '.api.php', "<?php
+use Najla\Classes\Api;
+use Najla\Classes\ExceptionHandler;
+
 \$router->map('$method', '$url', function () {
     \$api = new Api;
     \$exceptionHandler = new ExceptionHandler;

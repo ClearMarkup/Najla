@@ -16,3 +16,13 @@ function __($code)
         return $code;
     }
 }
+
+function applyCallbackToFiles($fileExt, $dir, $callback) {
+    foreach (glob($dir . '/*.'. $fileExt) as $file) {
+        $callback($file);
+    }
+
+    foreach (glob($dir . '/*', GLOB_ONLYDIR) as $subDir) {
+        applyCallbackToFiles($fileExt, $subDir, $callback);
+    }
+}

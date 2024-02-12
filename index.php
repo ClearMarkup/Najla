@@ -1,13 +1,22 @@
 <?php
+use Najla\Classes\View;
+
 // CORS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // Pre-flight request. Exit successfully.
     exit(0);
 }
 
-/* CONFIG */
-require_once(__DIR__ . '/najla.config.php');
-/* END_CONFIG */
+/* Config */
+if (file_exists(__DIR__ . '/../najla-config.php')) {
+    require_once(__DIR__ . '/../najla-config.php');
+} else {
+    if (!file_exists(__DIR__ . '/najla-config.php')) {
+        die('Please run <code>php najla init</code> to create the config file.');
+    } else {
+        require_once(__DIR__ . '/najla-config.php');
+    }
+}
 
 // Set custom session name
 session_name($config->session_name);
@@ -22,33 +31,14 @@ if ($config->debug) {
 }
 
 require_once(__DIR__ . '/vendor/autoload.php');
-require_once(__DIR__ . '/classes/autoloader.php');
-
-// Database
-use Medoo\Medoo;
-
-$database = new Medoo($config->database);
-
-// auth
-use Delight\Auth\Auth;
-
-$auth = new Auth($database->pdo, null, null, $config->debug ? false : true);
-
-// Validation
-use Rakit\Validation\Validator;
-use Rakit\Validation\Rule;
-
-$validator = new Validator;
-require_once(__DIR__ . '/controller/rules.php');
-
 require_once(__DIR__ . '/controller/functions.php');
 
 // Router
 $router = new AltoRouter();
 
-foreach (glob(__DIR__ . '/controller/routes/*.php') as $filename) {
-    include $filename;
-}
+applyCallbackToFiles('php' , __DIR__ . '/controller/routes', function ($file) use ($config, $router) {
+    require_once($file);
+});
 
 $match = $router->match();
 

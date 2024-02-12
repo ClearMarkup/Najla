@@ -2,15 +2,12 @@
     "name": "nabilnoel/htdocs",
     "autoload": {
         "psr-4": {
-            "Nabilnoel\\Htdocs\\": "src/"
+            "Nabilnoel\\Htdocs\\": "src/",
+            "Najla\\Classes\\": "classes/",
+            "Najla\\Controller\\Extends\\": "controller/extends/",
+            "Najla\\Validation\\ExtendsRules\\" : "controller/validatorRules/"
         }
     },
-    "authors": [
-        {
-            "name": "Nabil",
-            "email": "nabil.noel.m@gmail.com"
-        }
-    ],
     "require": {
         "altorouter/altorouter": "^2.0",
         "catfan/medoo": "^2.1",

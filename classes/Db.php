@@ -1,21 +1,14 @@
 <?php
 
-use Medoo\Medoo;
+namespace Najla\Classes;
 
 class Db extends Core
 {
-    private $db;
     private $table;
     private $where = [];
     private $orderBy;
     private $limit;
     private $relTable;
-
-    public function __construct()
-    {
-        global $config;
-        $this->db = new Medoo($config->database);
-    }
 
     private function resetState()
     {
@@ -28,7 +21,7 @@ class Db extends Core
 
     public function transaction($callback)
     {
-        return $this->db->action($callback);
+        return self::$dbInstance->action($callback);
     }
 
     public function table($table)
@@ -113,19 +106,19 @@ class Db extends Core
         list($result, $columns) = $this->prepareQuery($columns, $operation);
 
         if ($this->relTable !== null) {
-            $relData = $this->db->select($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
+            $relData = self::$dbInstance->select($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
 
             if (empty($relData)) {
                 $this->resetState();
                 return [];
             }
-            $data = $this->db->select($this->table, $result, array_merge($this->where, [
+            $data = self::$dbInstance->select($this->table, $result, array_merge($this->where, [
                 'id' => $relData,
                 'ORDER' => $this->orderBy,
                 'LIMIT' => $this->limit
             ]));
         } else {
-            $data = $this->db->select($this->table, $result, array_merge($this->where, [
+            $data = self::$dbInstance->select($this->table, $result, array_merge($this->where, [
                 'ORDER' => $this->orderBy,
                 'LIMIT' => $this->limit
             ]));
@@ -162,17 +155,17 @@ class Db extends Core
         list($result, $columns) = $this->prepareQuery($columns, $operation);
 
         if ($this->relTable !== null) {
-            $relData = $this->db->get($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
+            $relData = self::$dbInstance->get($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
 
             if (empty($relData)) {
                 $this->resetState();
                 return null;
             }
-            $data = $this->db->get($this->table, $result, array_merge($this->where, [
+            $data = self::$dbInstance->get($this->table, $result, array_merge($this->where, [
                 'id' => $relData
             ]));
         } else {
-            $data = $this->db->get($this->table, $result, $this->where);
+            $data = self::$dbInstance->get($this->table, $result, $this->where);
         }
 
         if (!is_array($data)) {
@@ -207,13 +200,13 @@ class Db extends Core
     public function has()
     {
         if ($this->relTable !== null) {
-            $relData = $this->db->get($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
+            $relData = self::$dbInstance->get($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
 
-            $data = $this->db->has($this->table, array_merge($this->where, [
+            $data = self::$dbInstance->has($this->table, array_merge($this->where, [
                 'id' => $relData
             ]));
         } else {
-            $data = $this->db->has($this->table, $this->where);
+            $data = self::$dbInstance->has($this->table, $this->where);
         }
 
         $this->resetState();
@@ -223,7 +216,7 @@ class Db extends Core
 
     public function insert($data)
     {
-        $data = $this->db->insert($this->table, $data);
+        $data = self::$dbInstance->insert($this->table, $data);
         $this->resetState();
         return $data;
         exit;
@@ -231,7 +224,7 @@ class Db extends Core
 
     public function update($data)
     {
-        $data = $this->db->update($this->table, $data, $this->where);
+        $data = self::$dbInstance->update($this->table, $data, $this->where);
         $this->resetState();
         return $data;
         exit;
@@ -239,7 +232,7 @@ class Db extends Core
 
     public function delete()
     {
-        $data = $this->db->delete($this->table, $this->where);
+        $data = self::$dbInstance->delete($this->table, $this->where);
         $this->resetState();
         return $data;
         exit;
@@ -247,7 +240,7 @@ class Db extends Core
 
     public function getIdFromSelector($tabel, $selector)
     {
-        $data = $this->db->get($tabel, 'id', ['selector' => $selector]);
+        $data = self::$dbInstance->get($tabel, 'id', ['selector' => $selector]);
         return $data;
         exit;
     }

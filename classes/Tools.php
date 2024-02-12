@@ -1,4 +1,6 @@
 <?php
+namespace Najla\Classes;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 

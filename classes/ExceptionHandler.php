@@ -1,4 +1,6 @@
 <?php
+namespace Najla\Classes;
+
 class ExceptionHandler
 {
     public function getMessage($exception)
