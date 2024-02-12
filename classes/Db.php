@@ -214,6 +214,22 @@ class Db extends Core
         exit;
     }
 
+    public function count(){
+        if ($this->relTable !== null) {
+            $relData = self::$dbInstance->get($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
+
+            $data = self::$dbInstance->count($this->table, array_merge($this->where, [
+                'id' => $relData
+            ]));
+        } else {
+            $data = self::$dbInstance->count($this->table, $this->where);
+        }
+
+        $this->resetState();
+        return $data;
+        exit;
+    }
+
     public function insert($data)
     {
         $data = self::$dbInstance->insert($this->table, $data);
