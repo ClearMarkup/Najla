@@ -53,10 +53,10 @@ $pdo->exec("CREATE DATABASE IF NOT EXISTS $database_name");
 
 // run the SQL file
 $pdo->exec("USE $database_name");
-$pdo->exec(file_get_contents(__DIR__ . '/database/MySQL.sql'));
+$pdo->exec(file_get_contents(__DIR__ . '/../database/MySQL.sql'));
 
 // create the config file
-file_put_contents(__DIR__ . '/../' . 'najla-config.php', "<?php
+file_put_contents($rootpath . 'najla-config.php', "<?php
 \$config = (object) [
     \"sitename\" => '$project_name',
     \"url\" => '$project_url',
@@ -104,16 +104,16 @@ file_put_contents(__DIR__ . '/../' . 'najla-config.php', "<?php
 ];");
 
 // create the najla.json file
-file_put_contents(__DIR__ . '/../najla.json', json_encode([
+file_put_contents($rootpath . 'najla.json', json_encode([
     'buildFiles' => [
         "classes/",
         "controller/",
         "lang/",
+        "public/",
         "vendor/",
         "views/",
-        ".htaccess",
         "index.php",
-        "najla-config.php",
+        "config.php",
     ]
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 

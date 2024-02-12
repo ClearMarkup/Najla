@@ -2,9 +2,8 @@
     "name": "nabilnoel/htdocs",
     "autoload": {
         "psr-4": {
-            "Nabilnoel\\Htdocs\\": "src/",
             "Najla\\Classes\\": "classes/",
-            "Najla\\Controller\\Extends\\": "controller/extends/",
+            "Najla\\Classes\\Extends\\": "controller/extends/",
             "Najla\\Validation\\ExtendsRules\\" : "controller/validatorRules/"
         }
     },

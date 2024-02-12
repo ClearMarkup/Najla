@@ -8,14 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 /* Config */
-if (file_exists(__DIR__ . '/../najla-config.php')) {
-    require_once(__DIR__ . '/../najla-config.php');
+if (!file_exists(__DIR__ . '/config.php')) {
+    die('Please run <code>php najla init</code> to create the config file.');
 } else {
-    if (!file_exists(__DIR__ . '/najla-config.php')) {
-        die('Please run <code>php najla init</code> to create the config file.');
-    } else {
-        require_once(__DIR__ . '/najla-config.php');
-    }
+    require_once(__DIR__ . '/config.php');
 }
 
 // Set custom session name

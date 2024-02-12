@@ -1,4 +1,7 @@
 <?php
+$rootpath = __DIR__ . '/';
+$commanspath = $rootpath . '.cli/commands/';
+
 if ($argc < 2) {
     die("Please provide a command.\n");
 }
@@ -7,17 +10,7 @@ $command = $argv[1];
 
 switch ($command) {
     case 'init':
-        require_once __DIR__ . '/.cli/init.php';
-        break;
-
-    case 'class:extends':
-    case 'c:e':
-        if ($argc < 3) {
-            die("Please provide wich class to extend.\n");
-        }
-        $class_name = ucfirst($argv[2]);
-
-        require_once __DIR__ . '/.cli/extends.php';
+        require_once $commanspath . 'init.php';
         break;
 
     case 'class':
@@ -26,56 +19,65 @@ switch ($command) {
             die("Please provide a class name.\n");
         }
 
-        $class_name = ucfirst($argv[2]);
-
-        require_once __DIR__ . '/.cli/class.php';
+        require_once $commanspath . 'class/class-add.php';
         break;
-    
-    case 'router:api':
-    case 'r:a':
+
+    case 'class:extends':
+    case 'ce':
         if ($argc < 3) {
-            die("Please provide a method.\n");
-            
-        } else if ($argc < 4) {
-            die("Please provide a route name.\n");
-            
+            die("Please provide wich class to extend.\n");
         }
 
-        require_once __DIR__ . '/.cli/router_api.php';
+        require_once $commanspath . 'class/class-extends.php';
         break;
 
-    case 'serve:mail':
-    case 's:m':
+    case 'routes:api':
+    case 'ra':
+        if ($argc < 3) {
+            die("Please provide a method.\n");
+        } else if ($argc < 4) {
+            die("Please provide a route name.\n");
+        }
+
+        require_once $commanspath . 'routes/routes-addapi.php';
+        break;
+
+    case 'server:mail':
+    case 'sm':
         shell_exec('cd .cli/mailslurper && ./mailslurper');
         break;
 
-    case 'serve:dev':
-    case 's:d':
+    case 'server:web':
+    case 'sw':
         $port = $argv[2] ?? '8000';
         $errorLogPath = __DIR__ . '/errors.txt';
 
         echo "Starting server at http://localhost:$port\n";
-        shell_exec("php -S 0.0.0.0:$port -t " . __DIR__ . " -f ./.cli/router.php -d error_log=$errorLogPath -d log_errors=On");
-        
+        shell_exec("php -S 0.0.0.0:$port -t " . __DIR__ . " ./.cli/start.php -d error_log=$errorLogPath -d log_errors=On");
+
         break;
 
     case 'build':
-        require_once __DIR__ . '/.cli/build.php';
+    case 'b':
+        require_once $commanspath . 'build/build.php';
         break;
-    case 'build:add':
+
+    case 'config:add':
+    case 'ca':
         if ($argc < 3) {
             die("Please provide a file/dir to add.\n");
         }
 
-        require_once __DIR__ . '/.cli/build_addpath.php';
+        require_once $commanspath . 'config/config-addpath.php';
         break;
-    
-    case 'build:remove':
+
+    case 'config:remove':
+    case 'cr':
         if ($argc < 3) {
             die("Please provide a file/dir to remove.\n");
         }
 
-        require_once __DIR__ . '/.cli/build_removepath.php';
+        require_once $commanspath . 'config/config-removepath.php';
         break;
 
     default:

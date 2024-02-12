@@ -1,7 +1,7 @@
 <?php 
 
 // Get config file
-$config_json = file_get_contents(__DIR__ . '/../najla.json');
+$config_json = file_get_contents($rootpath . 'najla.json');
 
 // Decode JSON
 $config = json_decode($config_json, true);
@@ -17,6 +17,6 @@ if ($index !== false) {
 $config_json = json_encode($config, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
 // Save to file
-file_put_contents(__DIR__ . '/../najla.json', $config_json);
+file_put_contents($rootpath . 'najla.json', $config_json);
 
 echo "\033[32mRemoved " . $argv[2] . " from buildFiles\033[0m\n";
