@@ -1,8 +1,8 @@
-!/uploads/
-/uploads/*
-!/uploads/.gitkeep
+!/public/uploads/
+/public/uploads/*
+!/public/uploads/.gitkeep
 /vendor/
 /build/
-najla-config.php
+config.php
 najla.json
 errors.txt

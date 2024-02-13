@@ -12,6 +12,15 @@ if (file_exists($filePath) && !is_dir($filePath)) {
     $mimeType = finfo_file($fileInfo, $filePath);
     finfo_close($fileInfo);
 
+    // Check if the file is a CSS file
+    if (pathinfo($filePath, PATHINFO_EXTENSION) === 'css') {
+        $mimeType = 'text/css';
+    } else if (pathinfo($filePath, PATHINFO_EXTENSION) === 'js') {
+        $mimeType = 'text/javascript';
+    } else if (pathinfo($filePath, PATHINFO_EXTENSION) === 'svg') {
+        $mimeType = 'image/svg+xml';
+    }
+
     header("Content-Type: $mimeType");
     readfile($filePath);
     exit;

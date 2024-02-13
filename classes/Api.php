@@ -10,6 +10,7 @@ class Api extends Core
 
     public function __construct()
     {
+        parent::__construct();
         $this->validator = new Validator;
 
         $validation_files = glob(__DIR__ . '/../controller/validatorRules/*');
@@ -25,7 +26,7 @@ class Api extends Core
     {
         $_token = filter_input(INPUT_SERVER, 'HTTP_X_CSRF_TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$_token || !isset($_SESSION['_token'])) {
-            $this->error('Invalid CSRF token.', 405);
+            $this->error('Invalid CSRF token. ', 405);
         } else if ($_token !== $_SESSION['_token']) {
             $this->error('Invalid CSRF token.', 405);
         }

@@ -90,7 +90,7 @@ class View extends Core
         $seo = json_decode(file_get_contents('lang/' . $site->language . '/' . $site->language . '.seo.json'), true);
         
         $page->title = $page->title ?? (isset($page->name) && isset($seo[$page->name]) ? $seo[$page->name]['title'] ?? $seo['title'] : $seo['title']);
-        $page->Desc = $page->Desc ?? (isset($page->name) && isset($seo[$page->name]) ? $seo[$page->name]['description'] ?? $seo['description'] : $seo['description']);
+        $page->desc = $page->desc ?? (isset($page->name) && isset($seo[$page->name]) ? $seo[$page->name]['description'] ?? $seo['description'] : $seo['description']);
         
         
         ob_start();

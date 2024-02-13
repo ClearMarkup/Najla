@@ -56,7 +56,7 @@ $pdo->exec("USE $database_name");
 $pdo->exec(file_get_contents(__DIR__ . '/../database/MySQL.sql'));
 
 // create the config file
-file_put_contents($rootpath . 'najla-config.php', "<?php
+file_put_contents($rootpath . 'config.php', "<?php
 \$config = (object) [
     \"sitename\" => '$project_name',
     \"url\" => '$project_url',

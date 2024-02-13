@@ -10,6 +10,11 @@ class Db extends Core
     private $limit;
     private $relTable;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     private function resetState()
     {
         $this->table = null;

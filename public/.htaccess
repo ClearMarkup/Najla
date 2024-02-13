@@ -1,4 +1,9 @@
+Options All -Indexes
 RewriteEngine On
+
+
+# HTPASSWD
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /../index.php [L]

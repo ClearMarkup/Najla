@@ -28,6 +28,7 @@ class Core
 
     public static function getAuthInstance()
     {
+        self::getDbInstance();
         global $config;
         if (self::$authInstance === null) {
             self::$authInstance = new Auth(self::$dbInstance->pdo, null, null, $config->debug ? false : true);

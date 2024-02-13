@@ -16,6 +16,7 @@ if (!file_exists(__DIR__ . '/config.php')) {
 
 // Set custom session name
 session_name($config->session_name);
+session_start();
 
 // Show errors if debug is true
 if ($config->debug) {

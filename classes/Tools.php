@@ -5,6 +5,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class Tools extends Core{
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     static public function sanitize($value, $operations)
     {
         if (is_callable($operations)) {
