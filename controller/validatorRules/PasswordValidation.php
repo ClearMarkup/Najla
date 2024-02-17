@@ -1,5 +1,5 @@
 <?php
-namespace Najla\Validation\ExtendsRules;
+namespace ClearMarkupValidation\ExtendsRules;
 
 class PasswordValidation extends \Rakit\Validation\Rule
 {

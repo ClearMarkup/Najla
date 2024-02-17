@@ -1,5 +1,5 @@
 <?php
-use Najla\Classes\View;
+use ClearMarkup\Classes\View;
 
 $router->map('GET', '/', function () {
     $view = new View;

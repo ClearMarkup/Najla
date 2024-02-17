@@ -1,5 +1,5 @@
 <?php
-namespace Najla\Classes;
+namespace ClearMarkup\Classes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -96,5 +96,25 @@ class Tools extends Core{
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+    }
+
+    static public function headCsrf()
+    {
+        if (!isset($_SESSION['_token'])) {
+            $_SESSION['_token'] = \Delight\Auth\Auth::createRandomString(32);
+        }
+        $token = filter_var($_SESSION['_token'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        return '<meta name="csrf-token" content="' . $token . '">';
+    }
+
+    static public function csrf()
+    {
+        if (!isset($_SESSION['_token'])) {
+            $_SESSION['_token'] = \Delight\Auth\Auth::createRandomString(32);
+        }
+        $token = filter_var($_SESSION['_token'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        return '<input type="hidden" name="_token" value="' . $token . '">';
     }
 }

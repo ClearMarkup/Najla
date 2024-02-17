@@ -2,9 +2,9 @@
     "name": "nabilnoel/htdocs",
     "autoload": {
         "psr-4": {
-            "Najla\\Classes\\": "classes/",
-            "Najla\\Classes\\Extends\\": "controller/extends/",
-            "Najla\\Validation\\ExtendsRules\\" : "controller/validatorRules/"
+            "ClearMarkup\\Classes\\": "classes/",
+            "ClearMarkup\\Classes\\Extends\\": "controller/extends/",
+            "ClearMarkup\\alidation\\ExtendsRules\\" : "controller/validatorRules/"
         }
     },
     "require": {
@@ -12,7 +12,6 @@
         "catfan/medoo": "^2.1",
         "delight-im/auth": "^8.3",
         "rakit/validation": "^1.4",
-        "stripe/stripe-php": "^13.3",
         "league/oauth2-client": "^2.7",
         "league/oauth2-google": "^4.0",
         "stevenmaguire/oauth2-microsoft": "^2.2",

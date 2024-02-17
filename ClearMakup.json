@@ -1,0 +1,12 @@
+{
+    "buildFiles": [
+        "classes/",
+        "controller/",
+        "lang/",
+        "public/",
+        "vendor/",
+        "views/",
+        "index.php",
+        "config.php"
+    ]
+}

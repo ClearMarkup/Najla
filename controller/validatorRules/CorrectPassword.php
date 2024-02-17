@@ -1,7 +1,7 @@
 <?php
-namespace Najla\Validation\ExtendsRules;
+namespace ClearMarkup\Validation\ExtendsRules;
 
-use Najla\Classes\Core;
+use ClearMarkup\Classes\Core;
 
 class CorrectPassword extends \Rakit\Validation\Rule
 {

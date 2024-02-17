@@ -1,5 +1,5 @@
 <?php
-namespace Najla\Classes;
+namespace ClearMarkup\Classes;
 
 class View extends Core
 {

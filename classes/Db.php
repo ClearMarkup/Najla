@@ -1,6 +1,6 @@
 <?php
 
-namespace Najla\Classes;
+namespace ClearMarkup\Classes;
 
 class Db extends Core
 {

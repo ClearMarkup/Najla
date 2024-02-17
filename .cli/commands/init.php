@@ -1,9 +1,9 @@
 <?php
 
 echo "
-\033[32m-------------------------------------------------
-Welcome to the installation page of Najla v.9.0.1
--------------------------------------------------\033[0m
+\033[32m----------------------------------
+Welcome to ClearMarkup Starter Kit 
+----------------------------------\033[0m
 
 Name your project:\n";
 $project_name = rtrim(fgets(STDIN), PHP_EOL);
@@ -64,7 +64,7 @@ file_put_contents($rootpath . 'config.php', "<?php
     \"language\" => \"en\",
     \"debug\" => true,
     \"openssl_key\" => '',
-    \"session_name\" => 'najla',
+    \"session_name\" => 'ClearMarkup',
     \"database\" => [
         'type' => 'mysql',
         'host' => '$database_host',
@@ -103,8 +103,8 @@ file_put_contents($rootpath . 'config.php', "<?php
     \"stripe_signing_secret\" => ''
 ];");
 
-// create the najla.json file
-file_put_contents($rootpath . 'najla.json', json_encode([
+// create the ClearMarkup.json file
+file_put_contents($rootpath . 'ClearMarkup.json', json_encode([
     'buildFiles' => [
         "classes/",
         "controller/",

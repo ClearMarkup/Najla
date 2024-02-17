@@ -1,7 +1,7 @@
 <?php
-namespace Najla\Validation\ExtendsRules;
+namespace ClearMarkupValidation\ExtendsRules;
 
-use Najla\Classes\Core;
+use ClearMarkup\Classes\Core;
 
 class UsernameValidation extends \Rakit\Validation\Rule
 {

@@ -7,7 +7,7 @@ if (!file_exists($rootpath . 'build')) {
     mkdir($rootpath . 'build');
 }
 
-$config = json_decode(file_get_contents($rootpath . 'najla.json'), true);
+$config = json_decode(file_get_contents($rootpath . 'ClearMarkup.json'), true);
 
 $build_files = $config['buildFiles'];
 
@@ -47,4 +47,4 @@ Require valid-user
 echo "\033[32m✅ Build complete!\033[0m You can find the build files in the build/ directory\n";
 
 // Gul text
-echo "\033[33mYou need to move najla-config.php to the parent directory of the public directory\033[0m\n";
+/* echo "\033[33mYou need to move ClearMarkup-config.php to the parent directory of the public directory\033[0m\n"; */

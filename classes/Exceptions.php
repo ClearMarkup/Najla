@@ -1,7 +1,7 @@
 <?php
-namespace Najla\Classes;
+namespace ClearMarkup\Classes;
 
-class ExceptionHandler
+class Exceptions
 {
     public function getMessage($exception)
     {

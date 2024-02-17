@@ -1,7 +1,12 @@
 <?php
 $class_name = ucfirst($argv[2]);
+
+if (!is_dir($rootpath . 'controller/extends')) {
+    mkdir($rootpath . 'controller/extends', 0777, true);
+}
+
 file_put_contents($rootpath . 'controller/extends/' . $class_name . '.php', "<?php
-namespace Najla\\Classes\\extends;
+namespace ClearMarkup\\Classes\\extends;
 
 class $class_name
 {

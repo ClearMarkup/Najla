@@ -6,8 +6,8 @@ if (!is_dir($rootpath . 'controller/extends')) {
 }
 
 file_put_contents($rootpath . 'controller/extends/Extended' . $class_name . '.php', "<?php
-namespace Najla\\Classes\\extends;
-use Najla\\Classes\\$class_name;
+namespace ClearMarkup\\Classes\\extends;
+use ClearMarkup\\Classes\\$class_name;
 
 class Extended$class_name extends $class_name
 {
@@ -36,8 +36,8 @@ if (isset($argv[3]) && $argv[3] == '-r' || isset($argv[3]) && $argv[3] == '-repl
             $file_content = preg_replace($pattern, $replacement, $file_content);
 
             // Add this block
-            $patternUse = '/use Najla\\\\Classes\\\\' . $class_name . ';/';
-            $replacementUse = 'use Najla\\\\Classes\\\\Extends\\\\' . 'Extended' . $class_name . ';';
+            $patternUse = '/use ClearMarkup\\\Classes\\\\' . $class_name . ';/';
+            $replacementUse = 'use ClearMarkup\\\Classes\\\\Extends\\\\' . 'Extended' . $class_name . ';';
 
             $file_content = preg_replace($patternUse, $replacementUse, $file_content);
 
@@ -45,5 +45,5 @@ if (isset($argv[3]) && $argv[3] == '-r' || isset($argv[3]) && $argv[3] == '-repl
         }
     }
 
-    echo "\033[32mAll instances of $class_name and 'use Najla\Classes\\$class_name;' have been replaced with Extended$class_name and 'use Najla\Validation\Extends\$class_name;'.\n\033[0m";
+    echo "\033[32mAll instances of $class_name and 'use ClearMarkup\\Classes\\$class_name;' have been replaced with Extended$class_name and 'use ClearMarkupValidation\Extends\$class_name;'.\n\033[0m";
 }
