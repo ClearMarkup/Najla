@@ -42,6 +42,25 @@ switch ($command) {
         require_once $commanspath . 'routes/routes-addapi.php';
         break;
 
+    case 'locales:add':
+    case 'la':
+        if ($argc < 3) {
+            die("Please provide a locale.\n");
+        }
+
+        require_once $commanspath . 'locales/locales-add.php';
+        break;
+    case 'locales:update':
+    case 'lu':
+
+        require_once $commanspath . 'locales/locales-update.php';
+        break;
+
+    case 'locales:compile':
+    case 'lc':
+        require_once $commanspath . 'locales/locales-compile.php';
+        break;
+
     case 'server:mail':
     case 'sm':
         shell_exec('cd .cli/mailslurper && ./mailslurper');

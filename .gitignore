@@ -1,8 +1,12 @@
 !/public/uploads/
 /public/uploads/*
 !/public/uploads/.gitkeep
+
 /vendor/
 /build/
+
+/locales/
+
 config.php
 ClearMarkup.json
 errors.txt

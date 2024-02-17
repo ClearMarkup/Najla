@@ -61,7 +61,7 @@ file_put_contents($rootpath . 'config.php', "<?php
     \"sitename\" => '$project_name',
     \"url\" => '$project_url',
     \"version\" => '$project_version',
-    \"language\" => \"en\",
+    \"locale\" => \"en_US\",
     \"debug\" => true,
     \"openssl_key\" => '',
     \"session_name\" => 'ClearMarkup',
@@ -97,10 +97,7 @@ file_put_contents($rootpath . 'config.php', "<?php
     \"microsoft_redirect_uri\" => '',
     \"sendgrid_api\" => '',
     \"mail_from\" => '',
-    \"mail_from_text\" => '',
-    \"stripe_pk\" => '',
-    \"stripe_sk\" => '',
-    \"stripe_signing_secret\" => ''
+    \"mail_from_text\" => ''
 ];");
 
 // create the ClearMarkup.json file

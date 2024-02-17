@@ -1,4 +1,5 @@
 <?php
+
 namespace ClearMarkup\Classes;
 
 class View extends Core
@@ -9,9 +10,12 @@ class View extends Core
     public function __construct()
     {
         global $config, $match;
-        $this->assign('site', (object) [
+
+        $this->assign('site', [
             'name' => $config->sitename,
-            'language' => $config->language,
+            'language' => explode('_', $config->locale)[0],
+            'url' => $config->url,
+            'version' => $config->version,
         ]);
 
         $db = new Db;
@@ -31,15 +35,21 @@ class View extends Core
             $user = false;
         }
 
-        $this->assign('user', (object) $user);
-        $this->assign('page', (object) [
+        $this->assign('user', $user);
+        $this->assign('page', [
             'name' => $match['name'] ?? null,
         ]);
     }
 
     public function assign($key, $value)
     {
-        $this->data[$key] = $value;
+        if (isset($this->data[$key]) && is_array($this->data[$key]) && is_array($value)) {
+            $this->data[$key] = (object) array_merge($this->data[$key], $value);
+        } else if (isset($this->data[$key]) && is_object($this->data[$key]) && is_array($value)) {
+            $this->data[$key] = (object) array_merge((array) $this->data[$key], $value);
+        } else {
+            $this->data[$key] = is_array($value) ? (object) $value : $value;
+        }
         return $this;
     }
 
@@ -47,7 +57,7 @@ class View extends Core
     {
         if ($status) {
             if (!self::$authInstance->isLoggedIn()) {
-                header('Location: /' . __('urLogin'));
+                header('Location: /login');
                 exit;
             }
         } else {
@@ -65,7 +75,7 @@ class View extends Core
             case 'normal':
                 if (!self::$authInstance->isNormal()) {
                     http_response_code(403);
-                    header('Location: /' . __('urLogin'));
+                    header('Location: /login');
                     exit;
                 }
                 break;
@@ -77,7 +87,7 @@ class View extends Core
     {
         if (!self::$authInstance->hasRole($role)) {
             http_response_code(403);
-            header('Location: /' . __('urLogin'));
+            header('Location: /login');
             exit;
         }
         return $this;
@@ -87,24 +97,7 @@ class View extends Core
     {
         extract($this->data);
 
-        $seo = json_decode(file_get_contents('lang/' . $site->language . '/' . $site->language . '.seo.json'), true);
-        
-        $page->title = $page->title ?? (isset($page->name) && isset($seo[$page->name]) ? $seo[$page->name]['title'] ?? $seo['title'] : $seo['title']);
-        $page->desc = $page->desc ?? (isset($page->name) && isset($seo[$page->name]) ? $seo[$page->name]['description'] ?? $seo['description'] : $seo['description']);
-        
-        
-        ob_start();
         require(__DIR__ . '/../views/' . $view . '.view.php');
-        $output = ob_get_clean();
-        
-        
-        $lang_list = json_decode(file_get_contents(__DIR__ . '/../lang/' . $site->language . '/' . $site->language . '.lang.json'), true);
-        foreach ($lang_list as $key => $value) {
-            $output = str_replace('{{' . $key . '}}', $value, $output);
-        }
-
-        http_response_code($status);
-        echo $output;
         return $this;
     }
 }

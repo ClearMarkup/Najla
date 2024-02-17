@@ -8,13 +8,13 @@ class Exceptions
         switch (get_class($exception)) {
             case 'Delight\Auth\InvalidEmailException':
             case 'Delight\Auth\InvalidPasswordException':
-                return __('incorrectEmailOrPassword');
+                return _('Invalid email or password');
             case 'Delight\Auth\EmailNotVerifiedException':
-                return __('emailNotVerified');
+                return _('Email not verified');
             case 'Delight\Auth\TooManyRequestsException':
-                return __('tooManyRequests');
+                return _('Too many requests have been made');
             default:
-                return __('unknownError');
+                return _('An error occurred, please try again later.');
         }
     }
 }

@@ -6,6 +6,6 @@
     <title><?= $page->title ?></title>
 </head>
 <body>
-    <h1>Hello World from ClearMarkup Starter Kit</h1>
+    <h1><?=_('Hello World from ClearMarkup Starter Kit')?></h1>
 </body>
 </html>

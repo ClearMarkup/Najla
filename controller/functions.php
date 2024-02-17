@@ -5,18 +5,6 @@
  * 
  */
 
-$lang_list = json_decode(file_get_contents(__DIR__ . '/../lang/' . $config->language . '/' . $config->language . '.lang.json'), true);
-
-function __($code)
-{
-    global $lang_list;
-    if (isset($lang_list[$code])) {
-        return $lang_list[$code];
-    } else {
-        return $code;
-    }
-}
-
 function applyCallbackToFiles($fileExt, $dir, $callback) {
     foreach (glob($dir . '/*.'. $fileExt) as $file) {
         $callback($file);

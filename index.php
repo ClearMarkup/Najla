@@ -27,6 +27,14 @@ if ($config->debug) {
     error_reporting(0);
 }
 
+// Set the locale into the instance of gettext
+putenv('LC_ALL=' . $config->locale);
+setlocale(LC_ALL, $config->locale);
+bindtextdomain('messages', __DIR__ . '/locales');
+textdomain('messages');
+bind_textdomain_codeset('core', 'UTF-8');
+
+// Autoload
 require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/controller/functions.php');
 
