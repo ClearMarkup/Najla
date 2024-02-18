@@ -98,6 +98,20 @@ class View extends Core
         extract($this->data);
 
         require(__DIR__ . '/../views/' . $view . '.view.php');
-        return $this;
+        http_response_code($status);
+        exit;
+    }
+
+    public function twig($view, $status = 200)
+    {
+        $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../views');
+        $twig = new \Twig\Environment($loader);
+
+        $twig->addGlobal('csrf', new \Twig\Markup(Tools::csrf(), 'UTF-8'));
+        $twig->addGlobal('headCsrf', new \Twig\Markup(Tools::headCsrf(), 'UTF-8'));
+
+        echo $twig->render($view . '.twig', (array) $this->data);
+        http_response_code($status);
+        exit;
     }
 }

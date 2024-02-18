@@ -1,4 +1,5 @@
 <?php
+
 use ClearMarkup\Classes\View;
 
 $router->map('GET', '/', function () {
@@ -9,4 +10,14 @@ $router->map('GET', '/', function () {
     ]);
 
     $view->render('index');
-}, 'home');
+});
+
+$router->map('GET', '/twig', function () {
+    $view = new View;
+
+    $view->assign('page', [
+        'title' => _('My awesome website'),
+    ]);
+
+    $view->twig('test');
+});

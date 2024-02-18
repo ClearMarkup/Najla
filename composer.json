@@ -15,6 +15,7 @@
         "league/oauth2-client": "^2.7",
         "league/oauth2-google": "^4.0",
         "stevenmaguire/oauth2-microsoft": "^2.2",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "twig/twig": "^3.8"
     }
 }
