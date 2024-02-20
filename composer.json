@@ -5,7 +5,7 @@
     "description": "ClearMarkup Starter Kit",
     "keywords": ["clearmarkup", "starterkit"],
     "homepage": "https://clearmarkup.com",
-    "minimum-stability": "beta",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "ClearMarkup",
