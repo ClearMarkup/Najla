@@ -1,6 +1,17 @@
 {
     "name" : "clearmarkup/starterkit",
     "license": "MIT",
+    "type": "project",
+    "description": "ClearMarkup Starter Kit",
+    "keywords": ["clearmarkup", "starterkit"],
+    "homepage": "https://clearmarkup.com",
+    "version": "0.9.0",
+    "authors": [
+        {
+            "name": "ClearMarkup",
+            "email": "support@clearmarkup.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "ClearMarkup\\Classes\\": "classes/",
