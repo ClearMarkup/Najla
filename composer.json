@@ -1,5 +1,6 @@
 {
     "name" : "clearmarkup/starterkit",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "ClearMarkup\\Classes\\": "classes/",
