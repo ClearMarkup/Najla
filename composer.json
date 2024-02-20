@@ -6,6 +6,7 @@
     "keywords": ["clearmarkup", "starterkit"],
     "homepage": "https://clearmarkup.com",
     "version": "0.9.0",
+    "minimum-stability": "beta",
     "authors": [
         {
             "name": "ClearMarkup",
@@ -20,6 +21,7 @@
         }
     },
     "require": {
+        "php": ">=8.2",
         "altorouter/altorouter": "^2.0",
         "catfan/medoo": "^2.1",
         "delight-im/auth": "^8.3",
