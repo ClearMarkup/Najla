@@ -63,7 +63,7 @@ class Tools extends Core{
         return $n_format . $suffix;
     }
 
-    static function sendEmail($to, $subject, $template, $holders = [])
+    static function sendEmail($to, $subject, $content, $holders = [])
     {
         global $config;
     
@@ -79,8 +79,6 @@ class Tools extends Core{
             $mail->SMTPSecure = $config->smtp['SMTPSecure'];
             $mail->Port       = $config->smtp['port'];
         }
-    
-        $content = file_get_contents('lang/' . $config->language . '/email/' . $template . '.html');
     
         foreach ($holders as $key => $value) {
             $content = str_replace('{{' . $key . '}}', $value, $content);

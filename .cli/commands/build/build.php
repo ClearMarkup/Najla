@@ -12,13 +12,19 @@ $config = json_decode(file_get_contents($rootpath . 'ClearMarkup.json'), true);
 $build_files = $config['buildFiles'];
 
 foreach ($build_files as $file) {
-    if (substr($file, -2) === '/!') {
-        shell_exec('rsync -a -f"+ */" -f"- *" ' . $rootpath . substr($file, 0, -2) . ' ' . $rootpath . 'build/');
-        continue;
-    } else if (is_dir($rootpath . $file)) {
-        shell_exec('rsync -a ' . $rootpath . $file . ' ' . $rootpath . 'build/' . $file);
+    $filePath = $rootpath . $file;
+    
+    if (file_exists($filePath)) {
+        if (substr($file, -2) === '/!') {
+            shell_exec('rsync -a -f"+ */" -f"- *" ' . $filePath . ' ' . $rootpath . 'build/');
+            continue;
+        } else if (is_dir($filePath)) {
+            shell_exec('rsync -a ' . $filePath . ' ' . $rootpath . 'build/' . $file);
+        } else {
+            copy($filePath, $rootpath . 'build/' . $file);
+        }
     } else {
-        copy($rootpath . $file, $rootpath . 'build/' . $file);
+        echo "File or directory does not exist: $filePath\n";
     }
 }
 
@@ -43,6 +49,8 @@ Require valid-user
 ', $htaccessContent);
     file_put_contents($htaccessPath, $htaccessContent);
 }
+
+shell_exec('cd ' . $rootpath . 'build && composer install --no-dev');
 
 echo "\033[32m✅ Build complete!\033[0m You can find the build files in the build/ directory\n";
 
