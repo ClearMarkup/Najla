@@ -10,7 +10,7 @@ ClearMarkup Starter Kit is your solution for faster and cleaner development. Our
 ## Get Started
 Getting started with ClearMarkup Starter Kit is effortless:
 ```bash
-> composer create-project ClearMarkup/Starter-Kit
+> composer create-project clearmarkup/starterkit
 > php cm init
 ```
 
