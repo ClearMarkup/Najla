@@ -2,11 +2,24 @@
 
 namespace ClearMarkup\Classes;
 
+/**
+ * The View class is responsible for rendering views and managing data for the views.
+ */
 class View extends Core
 {
 
+    /**
+     * The data array to store the assigned data for the views.
+     *
+     * @var array
+     */
     protected $data = [];
 
+    /**
+     * Constructs a new View object.
+     * 
+     * Initializes the View object by assigning site and user data.
+     */
     public function __construct()
     {
         global $config, $match;
@@ -41,6 +54,13 @@ class View extends Core
         ]);
     }
 
+    /**
+     * Assigns data to a specific key in the data array.
+     *
+     * @param string $key The key to assign the data to.
+     * @param mixed $value The value to assign.
+     * @return View Returns the View object for method chaining.
+     */
     public function assign($key, $value)
     {
         if (isset($this->data[$key]) && is_array($this->data[$key]) && is_array($value)) {
@@ -53,6 +73,12 @@ class View extends Core
         return $this;
     }
 
+    /**
+     * Checks the authentication status and redirects if necessary.
+     *
+     * @param bool $status The authentication status to check.
+     * @return View Returns the View object for method chaining.
+     */
     public function auth($status = true)
     {
         if ($status) {
@@ -69,6 +95,12 @@ class View extends Core
         return $this;
     }
 
+    /**
+     * Checks if the user has a specific status and redirects if necessary.
+     *
+     * @param string $status The status to check.
+     * @return View Returns the View object for method chaining.
+     */
     public function isStatus($status)
     {
         switch ($status) {
@@ -83,6 +115,12 @@ class View extends Core
         return $this;
     }
 
+    /**
+     * Checks if the user has a specific role and redirects if necessary.
+     *
+     * @param string $role The role to check.
+     * @return View Returns the View object for method chaining.
+     */
     public function hasRole($role)
     {
         if (!self::$authInstance->hasRole($role)) {
@@ -93,6 +131,13 @@ class View extends Core
         return $this;
     }
 
+    /**
+     * Renders a view with the assigned data.
+     *
+     * @param string $view The name of the view file to render.
+     * @param int $status The HTTP status code to set.
+     * @return void
+     */
     public function render($view, $status = 200)
     {
         extract($this->data);
@@ -102,6 +147,13 @@ class View extends Core
         exit;
     }
 
+    /**
+     * Renders a Twig template with the assigned data.
+     *
+     * @param string $view The name of the Twig template to render.
+     * @param int $status The HTTP status code to set.
+     * @return void
+     */
     public function twig($view, $status = 200)
     {
         $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../views');

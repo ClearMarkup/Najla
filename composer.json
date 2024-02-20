@@ -1,4 +1,5 @@
 {
+    "name" : "clearmarkup/starterkit",
     "autoload": {
         "psr-4": {
             "ClearMarkup\\Classes\\": "classes/",

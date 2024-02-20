@@ -1,16 +1,30 @@
 <?php
+
 namespace ClearMarkup\Classes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ * The Tools class provides various utility methods for common operations.
+ */
 class Tools extends Core{
 
+    /**
+     * Constructs a new Tools object.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Sanitizes a value using the specified operations.
+     *
+     * @param mixed $value The value to sanitize.
+     * @param callable|array $operations The operations to apply for sanitization.
+     * @return mixed The sanitized value.
+     */
     static public function sanitize($value, $operations)
     {
         if (is_callable($operations)) {
@@ -22,6 +36,14 @@ class Tools extends Core{
         return $value;
     }
 
+    /**
+     * Explodes a value using the specified delimiter and applies a callback function to each element.
+     *
+     * @param string $value The value to explode.
+     * @param string $delimiter The delimiter to use for exploding.
+     * @param callable $callback The callback function to apply to each element.
+     * @return array The exploded and mapped array.
+     */
     static public function exlodeMap($value, $delimiter, $callback)
     {
         $value = explode($delimiter, $value);
@@ -29,6 +51,13 @@ class Tools extends Core{
         return array_filter($value);
     }
 
+    /**
+     * Formats a number to a short representation with suffixes (k, m, b, t).
+     *
+     * @param float $n The number to format.
+     * @param int $precision The number of decimal places to round to (default: 1).
+     * @return string The formatted number with suffix.
+     */
     static public function shortNummber($n, $precision = 1)
     {
         if ($n < 900) {
@@ -63,6 +92,15 @@ class Tools extends Core{
         return $n_format . $suffix;
     }
 
+    /**
+     * Sends an email using PHPMailer.
+     *
+     * @param string $to The recipient email address.
+     * @param string $subject The email subject.
+     * @param string $content The email content.
+     * @param array $holders Optional placeholders to replace in the content.
+     * @throws Exception If the email sending fails.
+     */
     static function sendEmail($to, $subject, $content, $holders = [])
     {
         global $config;
@@ -96,6 +134,11 @@ class Tools extends Core{
         }
     }
 
+    /**
+     * Generates a CSRF token and returns it as a meta tag.
+     *
+     * @return string The CSRF token as a meta tag.
+     */
     static public function headCsrf()
     {
         if (!isset($_SESSION['_token'])) {
@@ -106,6 +149,11 @@ class Tools extends Core{
         return '<meta name="csrf-token" content="' . $token . '">';
     }
 
+    /**
+     * Generates a CSRF token and returns it as a hidden input field.
+     *
+     * @return string The CSRF token as a hidden input field.
+     */
     static public function csrf()
     {
         if (!isset($_SESSION['_token'])) {

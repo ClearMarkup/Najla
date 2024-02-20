@@ -2,19 +2,31 @@
 
 namespace ClearMarkup\Classes;
 
+/**
+ * The Db class represents a database connection and provides methods for interacting with the database.
+ */
 class Db extends Core
 {
+
     private $table;
     private $where = [];
     private $orderBy;
     private $limit;
     private $relTable;
 
+    /**
+     * Creates a new Db instance.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Resets the state of the Db instance.
+     *
+     * @return void
+     */
     private function resetState()
     {
         $this->table = null;
@@ -24,17 +36,36 @@ class Db extends Core
         $this->relTable = null;
     }
 
+    /**
+     * Executes a transaction with the given callback function.
+     *
+     * @param callable $callback The callback function to execute within the transaction.
+     * @return mixed The result of the transaction.
+     */
     public function transaction($callback)
     {
         return self::$dbInstance->action($callback);
     }
 
+    /**
+     * Sets the name of the table for the query.
+     *
+     * @param string $table The name of the table.
+     * @return $this The Db instance.
+     */
     public function table($table)
     {
         $this->table = $table;
         return $this;
     }
 
+    /**
+     * Sets the column and order for sorting the query results.
+     *
+     * @param string|array $column The column or columns to order by.
+     * @param string $order The order of the sorting (ASC or DESC).
+     * @return $this The Db instance.
+     */
     public function orderBy($column, $order = 'ASC')
     {
         if (is_array($column)) {
@@ -45,12 +76,25 @@ class Db extends Core
         return $this;
     }
 
+    /**
+     * Sets the maximum number of rows to return in the query results.
+     *
+     * @param int $limit The maximum number of rows.
+     * @return $this The Db instance.
+     */
     public function limit($limit)
     {
         $this->limit = $limit;
         return $this;
     }
 
+    /**
+     * Sets the WHERE conditions for the query.
+     *
+     * @param string|array $where The WHERE conditions.
+     * @param mixed $filter The filter value (optional).
+     * @return $this The Db instance.
+     */
     public function filter($where, $filter = null)
     {
         if (is_string($where)) {
@@ -60,9 +104,13 @@ class Db extends Core
         return $this;
     }
 
-
-
-
+    /**
+     * Prepares the query by formatting the columns and operations.
+     *
+     * @param string|array $columns The columns to select.
+     * @param string|null $operation The operation to apply to the columns.
+     * @return array The prepared query columns and operations.
+     */
     private function prepareQuery($columns = '*', $operation = null)
     {
         if (is_string($columns)) {
@@ -90,12 +138,14 @@ class Db extends Core
         return [$result, $columns];
     }
 
-
-
-
-
-
-
+    /**
+     * Sets the related table information for performing a join operation.
+     *
+     * @param string $table The name of the related table.
+     * @param array $where The WHERE conditions for the join operation.
+     * @param string $column The column to join on.
+     * @return $this The Db instance.
+     */
     public function rel($table, $where, $column)
     {
         $this->relTable = [
@@ -106,6 +156,13 @@ class Db extends Core
         return $this;
     }
 
+    /**
+     * Executes a SELECT query and returns the query results.
+     *
+     * @param string|array $columns The columns to select.
+     * @param string|null $operation The operation to apply to the columns.
+     * @return array The query results.
+     */
     public function select($columns = '*', $operation = null)
     {
         list($result, $columns) = $this->prepareQuery($columns, $operation);
@@ -152,9 +209,15 @@ class Db extends Core
 
         $this->resetState();
         return $data;
-        exit;
     }
 
+    /**
+     * Executes a SELECT query and returns a single row of the query results.
+     *
+     * @param string|array $columns The columns to select.
+     * @param string|null $operation The operation to apply to the columns.
+     * @return mixed The query result.
+     */
     public function get($columns = '*', $operation = null)
     {
         list($result, $columns) = $this->prepareQuery($columns, $operation);
@@ -199,9 +262,13 @@ class Db extends Core
             $this->resetState();
             return $data;
         }
-        exit;
     }
 
+    /**
+     * Checks if a record exists in the table based on the WHERE conditions.
+     *
+     * @return bool True if the record exists, false otherwise.
+     */
     public function has()
     {
         if ($this->relTable !== null) {
@@ -216,10 +283,15 @@ class Db extends Core
 
         $this->resetState();
         return $data;
-        exit;
     }
 
-    public function count(){
+    /**
+     * Counts the number of records in the table based on the WHERE conditions.
+     *
+     * @return int The number of records.
+     */
+    public function count()
+    {
         if ($this->relTable !== null) {
             $relData = self::$dbInstance->get($this->relTable['table'], $this->relTable['column'], $this->relTable['where']);
 
@@ -232,37 +304,56 @@ class Db extends Core
 
         $this->resetState();
         return $data;
-        exit;
     }
 
+    /**
+     * Inserts a new record into the table.
+     *
+     * @param array $data The data to insert.
+     * @return mixed The result of the insert operation.
+     */
     public function insert($data)
     {
         $data = self::$dbInstance->insert($this->table, $data);
         $this->resetState();
         return $data;
-        exit;
     }
 
+    /**
+     * Updates records in the table based on the WHERE conditions.
+     *
+     * @param array $data The data to update.
+     * @return mixed The result of the update operation.
+     */
     public function update($data)
     {
         $data = self::$dbInstance->update($this->table, $data, $this->where);
         $this->resetState();
         return $data;
-        exit;
     }
 
+    /**
+     * Deletes records from the table based on the WHERE conditions.
+     *
+     * @return mixed The result of the delete operation.
+     */
     public function delete()
     {
         $data = self::$dbInstance->delete($this->table, $this->where);
         $this->resetState();
         return $data;
-        exit;
     }
 
-    public function getIdFromSelector($tabel, $selector)
+    /**
+     * Retrieves the ID from the table based on the selector.
+     *
+     * @param string $table The name of the table.
+     * @param string $selector The selector value.
+     * @return mixed The ID value.
+     */
+    public function getIdFromSelector($table, $selector)
     {
-        $data = self::$dbInstance->get($tabel, 'id', ['selector' => $selector]);
+        $data = self::$dbInstance->get($table, 'id', ['selector' => $selector]);
         return $data;
-        exit;
     }
 }
