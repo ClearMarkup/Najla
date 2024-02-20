@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 /* Config */
 if (!file_exists(__DIR__ . '/config.php')) {
-    die('Please run <code>php ClearMarkup init</code> to create the config file.');
+    die('Please run <code>php cm init</code> to create the config file.');
 } else {
     require_once(__DIR__ . '/config.php');
 }
