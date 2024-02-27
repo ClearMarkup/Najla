@@ -50,6 +50,6 @@ $match = $router->match();
 if (is_array($match) && is_callable($match['target'])) {
     call_user_func_array($match['target'], $match['params']);
 } else {
-    $view = new View();
+    $view = new View;
     $view->render('404', 404);
 };
