@@ -1,5 +1,18 @@
 <?php
 
+function arrayToString($array) {
+    $result = "[\n";
+    foreach ($array as $key => $value) {
+        if (strpos($value, '__DIR__') === 0) {
+            $result .= "        '" . $key . "' => " . $value . ",\n";
+        } else {
+            $result .= "        '" . $key . "' => '" . $value . "',\n";
+        }
+    }
+    $result .= "    ]";
+    return $result;
+}
+
 echo "
 \033[32m----------------------------------
 Welcome to ClearMarkup Starter Kit 
@@ -16,12 +29,6 @@ echo "Type the URL of your project: (default is http://localhost)\n";
 $project_url = rtrim(fgets(STDIN), PHP_EOL);
 if (empty($project_url)) {
     $project_url = "http://localhost";
-}
-
-echo "Type the version of your project (default is 0.9.0):\n";
-$project_version = rtrim(fgets(STDIN), PHP_EOL);
-if (empty($project_version)) {
-    $project_version = "0.1.0";
 }
 
 echo "Type the database type (default is mysql):\n";
@@ -102,30 +109,40 @@ switch ($database_type) {
 
         $database = [
             'type' => 'sqlite',
-            'database' => $database_name,
+            'database' => '__DIR__ . \'/\' . \'' . $database_name . '\'',
         ];
         break;
 }
 
 // create the config file
 file_put_contents($rootpath . 'config.php', "<?php
+/**
+ * ClearMarkup Configuration
+ * 
+ * This file contains the configuration for the ClearMarkup application.
+ * 
+ * @package ClearMarkup
+ * 
+ */
+
 \$config = (object) [
-    \"sitename\" => '$project_name',
-    \"url\" => '$project_url',
-    \"version\" => '$project_version',
-    \"locale\" => \"en_US\",
-    \"debug\" => true,
-    \"openssl_key\" => '',
-    \"session_name\" => 'ClearMarkup',
-    \"database\" => " . var_export($database, true) . ",
-    \"password_policy\" => [
+    'sitename' => '$project_name',
+    'url' => '$project_url',
+    'version' => '0.1.0',
+    'locale' => 'en_US',
+    'debug' => true,
+    'openssl_key' => '',
+    'session_name' => 'ClearMarkup',
+    'database' => " . arrayToString($database) . ",
+    'password_policy' => [
         'length' => 8,
         'uppercase' => 1,
         'lowercase' => 1,
         'digit' => 1,
         'special' => 1
     ],
-    \"smtp\" => [
+    'remember_duration' => (int) (60 * 60 * 24 * 365.25 / 12),
+    'smtp' => [
         'host' => 'localhost',
         'SMTPAuth' => false,
         'username' => 'mail@localhost',
@@ -133,22 +150,31 @@ file_put_contents($rootpath . 'config.php', "<?php
         'SMTPSecure' => false,
         'port' => 2500
     ],
-    \"mail_from\" => '',
-    \"mail_from_text\" => ''
+    'mail_from' => '',
+    'mail_from_text' => ''
 ];");
 
 // create the ClearMarkup.json file
+
+// if db type is sqlite, add the database file to the buildFiles
+$buildFiles = [
+    "classes/",
+    "controller/",
+    "locales/",
+    "public/",
+    "vendor/",
+    "views/",
+    "index.php",
+    "config.php",
+];
+
+if ($database_type === 'sqlite') {
+    $buildFiles[] = $database_name;
+}
+
+
 file_put_contents($rootpath . 'ClearMarkup.json', json_encode([
-    'buildFiles' => [
-        "classes/",
-        "controller/",
-        "locales/",
-        "public/",
-        "vendor/",
-        "views/",
-        "index.php",
-        "config.php",
-    ]
+    "buildFiles" => $buildFiles
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 
 echo "\033[32m✅ Installation complete!\033[0m\n";
