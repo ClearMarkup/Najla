@@ -44,15 +44,14 @@ if (isset($argv[2]) && $argv[2] === '-pwd') {
     $htaccessContent = str_replace('# HTPASSWD', '
 AuthType Basic
 AuthName "Restricted Area"
-AuthUserFile /var/www/.htpasswd
+AuthUserFile ../.htpasswd
 Require valid-user
 ', $htaccessContent);
     file_put_contents($htaccessPath, $htaccessContent);
 }
 
-shell_exec('cd ' . $rootpath . 'build && composer install --no-dev');
+/* shell_exec('cd ' . $rootpath . 'build && composer install --no-dev'); */
 
 echo "\033[32m✅ Build complete!\033[0m You can find the build files in the build/ directory\n";
 
-// Gul text
 /* echo "\033[33mYou need to move ClearMarkup-config.php to the parent directory of the public directory\033[0m\n"; */

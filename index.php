@@ -41,7 +41,7 @@ require_once(__DIR__ . '/controller/functions.php');
 // Router
 $router = new AltoRouter();
 
-applyCallbackToFiles('php' , __DIR__ . '/controller/routes', function ($file) use ($config, $router) {
+applyCallbackToFiles('php' , __DIR__ . '/routes', function ($file) use ($config, $router) {
     require_once($file);
 });
 

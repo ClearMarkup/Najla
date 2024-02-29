@@ -128,6 +128,7 @@ file_put_contents($rootpath . 'config.php', "<?php
 \$config = (object) [
     'sitename' => '$project_name',
     'url' => '$project_url',
+    'root' => __DIR__ . '/',
     'version' => '0.1.0',
     'locale' => 'en_US',
     'debug' => true,
@@ -158,8 +159,8 @@ file_put_contents($rootpath . 'config.php', "<?php
 
 // if db type is sqlite, add the database file to the buildFiles
 $buildFiles = [
-    "classes/",
     "controller/",
+    "routes/",
     "locales/",
     "public/",
     "vendor/",
