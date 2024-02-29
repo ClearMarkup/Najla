@@ -13,7 +13,11 @@ if (!file_exists($rootpath . 'locales/' . $argv[2] . '/LC_MESSAGES')) {
 }
 
 $directories = [$rootpath . 'controller', $rootpath . 'views'];
+$outputFile = $rootpath . 'locales/' . $argv[2] . '/LC_MESSAGES/messages.po';
+
 $files = [];
+
+$contents = file_put_contents($outputFile, '');
 
 foreach ($directories as $directory) {
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
@@ -25,7 +29,6 @@ foreach ($directories as $directory) {
 }
 
 if ($files) {
-    $outputFile = $rootpath . 'locales/' . $argv[2] . '/LC_MESSAGES/messages.po';
     $command = 'xgettext -o ' . escapeshellarg($outputFile) . ' ' . implode(' ', $files);
     shell_exec($command);
 }
