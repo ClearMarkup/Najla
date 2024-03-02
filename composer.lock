@@ -1017,12 +1017,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ClearMarkup/Starter-Kit-cli.git",
-                "reference": "7555173b55387f0f9c7144f110f473f6734f68c0"
+                "reference": "72cb2fe0dd617814b9d0daeac44dc68315602f35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ClearMarkup/Starter-Kit-cli/zipball/7555173b55387f0f9c7144f110f473f6734f68c0",
-                "reference": "7555173b55387f0f9c7144f110f473f6734f68c0",
+                "url": "https://api.github.com/repos/ClearMarkup/Starter-Kit-cli/zipball/72cb2fe0dd617814b9d0daeac44dc68315602f35",
+                "reference": "72cb2fe0dd617814b9d0daeac44dc68315602f35",
                 "shasum": ""
             },
             "require": {
@@ -1052,7 +1052,7 @@
                 "issues": "https://github.com/ClearMarkup/Starter-Kit-cli/issues",
                 "source": "https://github.com/ClearMarkup/Starter-Kit-cli/tree/master"
             },
-            "time": "2024-03-02T02:59:55+00:00"
+            "time": "2024-03-02T03:26:43+00:00"
         }
     ],
     "aliases": [],
