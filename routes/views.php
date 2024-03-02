@@ -1,6 +1,6 @@
 <?php
-
 use ClearMarkup\Classes\View;
+use ClearMarkup\Classes\Db;
 
 $router->map('GET', '/', function () {
     $view = new View;

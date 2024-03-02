@@ -8,6 +8,6 @@
 /locales/
 *.sqlite
 
-config.php
+.env
 ClearMarkup.json
 errors.txt

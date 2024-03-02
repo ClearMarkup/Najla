@@ -14,12 +14,15 @@
     ],
     "autoload": {
         "psr-4": {
-            "ClearMarkup\\Classes\\Extends\\": "controller/extends/",
-            "ClearMarkup\\Validation\\ExtendsRules\\" : "controller/validatorRules/"
+            "ClearMarkup\\Classes\\" : "controller/",
+            "ClearMarkup\\Classes\\Extends\\": "controller/extends/"
         }
     },
     "require": {
         "php": ">=8.2",
         "clearmarkup/core": "dev-master"
+    },
+    "require-dev": {
+        "clearmarkup/cli": "dev-master"
     }
 }
