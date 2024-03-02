@@ -148,12 +148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ClearMarkup/Starter-Kit-Core.git",
-                "reference": "43d272d9e48a0ab79012cbd1dbcacef292777780"
+                "reference": "b5cd5d6cc0c24cfe5f52fdcb0285d2a54e7ca3ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ClearMarkup/Starter-Kit-Core/zipball/43d272d9e48a0ab79012cbd1dbcacef292777780",
-                "reference": "43d272d9e48a0ab79012cbd1dbcacef292777780",
+                "url": "https://api.github.com/repos/ClearMarkup/Starter-Kit-Core/zipball/b5cd5d6cc0c24cfe5f52fdcb0285d2a54e7ca3ad",
+                "reference": "b5cd5d6cc0c24cfe5f52fdcb0285d2a54e7ca3ad",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
                 "issues": "https://github.com/ClearMarkup/Starter-Kit-Core/issues",
                 "source": "https://github.com/ClearMarkup/Starter-Kit-Core/tree/master"
             },
-            "time": "2024-03-02T02:29:30+00:00"
+            "time": "2024-03-02T14:23:34+00:00"
         },
         {
             "name": "delight-im/auth",
